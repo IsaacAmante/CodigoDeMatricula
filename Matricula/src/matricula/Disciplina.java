@@ -14,12 +14,20 @@ public class Disciplina {
     private int cargaHoraria;
     private String nome;
     
-    public void obterCargaHoraria(int cargaHoraria){
+    public void definirCargaHoraria(int cargaHoraria){
         this.cargaHoraria = cargaHoraria;
     }
     
-    public void obterNome (String nome){
+    public void definirNome (String nome){
         this.nome = nome;
+    }
+    
+    public int obterCargaHoraria(){
+        return cargaHoraria;
+    }
+    
+    public String obterNome(){
+        return nome;
     }
     
     public Disciplina(int cargaHoraria, String nome){
