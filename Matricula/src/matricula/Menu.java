@@ -8,12 +8,12 @@ public class Menu {
     public int obterEntradaDoUsuario(int numeroDeOpcoes){
         Scanner entrada = new Scanner(System.in);
         try {
-            int opcao = entrada.nextInt();
-            if((opcao >= 1) && (opcao <= numeroDeOpcoes)){
+            int opcao = entrada.nextInt();//armazena a entrada
+            if((opcao >= 1) && (opcao <= numeroDeOpcoes)){//verifica se a entrada esta dentro das opções
                 return opcao;
             } else {
                 System.out.println("Essa opção não existe, entre uma das opções da lista");
-                return obterEntradaDoUsuario(numeroDeOpcoes);
+                return obterEntradaDoUsuario(numeroDeOpcoes);//chama a si mesmo recursivamente ate que uma chamada retorne um valor valido
             }
         } catch (InputMismatchException erro){
             System.out.println("Por favor entre o valor numerico correspondente a opção desejada. Erro: "+erro);
