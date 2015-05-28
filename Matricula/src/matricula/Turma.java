@@ -1,6 +1,5 @@
 package matricula;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 
 
@@ -15,66 +14,60 @@ public class Turma {
     private String horario;
     private String status;
     private List<Aluno> alunos;
-    Professor professor;
-    
+    private Professor professor;
+    private List<Disciplina> disciplinas;
     
     public Turma(int codTurma, int sala, String horario, String status){
         this.codTurma = codTurma;
         this.sala = sala;
         this.horario = horario;
         this.status = status;
-    }    
-    
+    }
     
     public boolean incluirAluno(Aluno aluno){
-        if(this.alunos.size() < 10){
-            if(aluno.adicionarTurma(this)){
-                return this.alunos.add(aluno);
-            } else return false;
-        } else {
-            JOptionPane.showConfirmDialog(null, "Foi atingido o limite de alunos(10), não podemos adicicionar-lo");
-            return false;
-        }
+        return this.alunos.add(aluno);
     }
     
     public boolean retiraAluno(Aluno aluno){
-        aluno.removeTurma(this);
-        if(!this.alunos.remove(aluno)){
-            JOptionPane.showConfirmDialog(null, "O aluno não está na turma");
-            return false;
-        }
-        return true;
+        return this.alunos.remove(aluno);
     }
     
     public List<Aluno> obterAlunos(){
         return this.alunos;
     }
     
-    public void definirProfessor(Professor professor){
-        if(this.professor != null){
-            JOptionPane.showConfirmDialog(null, "Substituindo professor "+this.professor.obterNome()+" por "+professor.obterNome());
-        }
+    public Professor definirProfessor(Professor professor){
+        Professor professorAnterior = this.professor;
         this.professor = professor;
+        return professorAnterior;
     }
     
-    public boolean estaAberta(){
-        return this.alunos.size() < 10;
+    public boolean estaAberta(int numMaxAlunos){
+        return this.alunos.size() < numMaxAlunos;
     }
     
-    public void definirCodTurma(int codigo){
+    public int definirCodTurma(int codigo){
+        int codAnterior = this.codTurma;
         this.codTurma = codigo;
+        return codAnterior;
     }
     
-    public void definirSala(int sala){
+    public int definirSala(int sala){
+        int salaAnterior = this.sala;
         this.sala = sala;
+        return salaAnterior;
     }
     
-    public void definirHorario(String horario){
+    public String definirHorario(String horario){
+        String horarioAnterior = this.horario;
         this.horario = horario;
+        return horarioAnterior;
     }
     
-    public void definirStatus(String status){
+    public String definirStatus(String status){
+        String statusAnterior = this.status;
         this.status = status;
+        return statusAnterior;
     }
     
     public int obterCodTurma(){
@@ -96,6 +89,15 @@ public class Turma {
     public Professor obterProfessor(){
         return professor;
     }
-    
+    public boolean adicionarDisciplina(Disciplina disciplina){
+        return this.disciplinas.add(disciplina);
+    }
 
+    public boolean removerDisciplinas(Disciplina disciplina){
+        return this.disciplinas.remove(disciplina);
+    }
+    
+    public List<Disciplina> obterDisciplinas(){
+        return this.disciplinas;
+    }
 }
