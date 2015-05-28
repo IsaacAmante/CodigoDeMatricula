@@ -1,7 +1,6 @@
 package matricula;
-import java.sql.Time;
-import java.time.*;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 
@@ -20,12 +19,22 @@ public class Turma {
     
     public boolean incluirAluno(Aluno aluno){
         if(this.alunos.size() < 10){
-            return this.alunos.add(aluno);
-        } else return false;
+            if(aluno.adicionarTurma(this)){
+                return this.alunos.add(aluno);
+            } else return false;
+        } else {
+            JOptionPane.showConfirmDialog(null, "Foi atingido o limite de alunos(10), não podemos adicicionar-lo");
+            return false;
+        }
     }
     
     public boolean retiraAluno(Aluno aluno){
-        return this.alunos.remove(aluno);
+        aluno.removeTurma(this);
+        if(!this.alunos.remove(aluno)){
+            JOptionPane.showConfirmDialog(null, "O aluno não está na turma");
+            return false;
+        }
+        return true;
     }
     
     public List<Aluno> obterAlunos(){
@@ -33,6 +42,9 @@ public class Turma {
     }
     
     public void definirProfessor(Professor professor){
+        if(this.professor != null){
+            JOptionPane.showConfirmDialog(null, "Substituindo professor "+this.professor.obterNome()+" por "+professor.obterNome());
+        }
         this.professor = professor;
     }
     

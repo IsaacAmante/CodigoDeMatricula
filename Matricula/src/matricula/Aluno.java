@@ -1,5 +1,6 @@
 package matricula;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Isaac
@@ -13,7 +14,10 @@ public class Aluno {
     public boolean adicionarTurma(Turma turma){
         if (this.turmas.size() < 4) {
             return this.turmas.add(turma);
-        } else return false;
+        } else {
+            JOptionPane.showConfirmDialog(null, "Foi atingido o limite de turmas para esse aluno(4), não é possivel inseri-lo em outra turma.");
+            return false;
+        }
     }
     
     public boolean removeTurma(Turma turma){
