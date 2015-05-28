@@ -58,3 +58,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /Matricula/nbproject/
+/Matricula/build.xml
+/Matricula/manifest.mf
