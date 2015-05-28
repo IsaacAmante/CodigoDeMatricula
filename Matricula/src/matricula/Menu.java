@@ -1,8 +1,28 @@
 package matricula;
-import java.util.Scanner;
+import java.awt.HeadlessException;
+import java.util.*;
+import javax.swing.JOptionPane;
 
 public class Menu {
-
+    
+    public int obterEntradaDoUsuario(int numeroDeOpcoes){
+        Scanner entrada = new Scanner(System.in);
+        try {
+            int opcao = entrada.nextInt();
+            if((opcao >= 1) && (opcao <= numeroDeOpcoes)){
+                return opcao;
+            } else {
+                System.out.println("Essa opção não existe, entre uma das opções da lista");
+                return obterEntradaDoUsuario(numeroDeOpcoes);
+            }
+        } catch (InputMismatchException erro){
+            System.out.println("Por favor entre o valor numerico correspondente a opção desejada. Erro: "+erro);
+            return obterEntradaDoUsuario(numeroDeOpcoes);
+        } catch (HeadlessException erro) {
+            System.out.println(erro);
+            return obterEntradaDoUsuario(numeroDeOpcoes);
+        }
+    }
     
     public int exibeMenuPrincipal(){
         System.out.println("MENU PRINCIPAL");
@@ -14,9 +34,8 @@ public class Menu {
         System.out.println("5 - Cadastro de Notas");
         System.out.println("6 - Sair");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(6);
     }
     
     
@@ -27,9 +46,8 @@ public class Menu {
         System.out.println("2 - Listar Alunos");
         System.out.println("3 - Voltar");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(3);
     }
     
     
@@ -40,9 +58,8 @@ public class Menu {
         System.out.println("2 - Listar Professores");
         System.out.println("3 - Voltar");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(3);
     }
         
     
@@ -53,9 +70,8 @@ public class Menu {
         System.out.println("2 - Listar Disciplinas");
         System.out.println("3 - Voltar");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(3);
     }
     
     
@@ -67,9 +83,8 @@ public class Menu {
         System.out.println("2 - Listar Turmas");
         System.out.println("3 - Voltar");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(3);
     }
     
     
@@ -80,9 +95,8 @@ public class Menu {
         System.out.println("2 - Listar Notas");
         System.out.println("3 - Voltar");
         
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Informe uma opção: ");
-        return entrada.nextInt();
+        return obterEntradaDoUsuario(3);
     }
     
     
