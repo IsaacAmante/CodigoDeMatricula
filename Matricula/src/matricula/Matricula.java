@@ -6,7 +6,7 @@
 
 package matricula;
 import javax.swing.JOptionPane;
-
+import java.util.Scanner;
 
 /**
  *
@@ -14,8 +14,13 @@ import javax.swing.JOptionPane;
  */
 public class Matricula {
 
+    public static int matricula, codturma, sala;
+    public static String nome, horario, status; 
+    public static Scanner entrada = new Scanner(System.in);
+    
     public static void main(String[] args) {
-
+        
+        
         int opcao = 0;
 
         //Exibe o menu principal
@@ -35,6 +40,14 @@ public class Matricula {
                         switch(opcao){
                             case 1:
                                 //chama inclusão de aluno
+                                System.out.printf("Matricula:");
+                                matricula = entrada.nextInt();
+                                entrada.nextLine();
+                                System.out.printf("Nome: ");
+                                nome = entrada.nextLine();
+                                Aluno aluno = new Aluno(matricula, nome);
+                                System.out.println(">>>>> Aluno cadastrado <<<<<");
+                                System.out.println("\n\n\n\n");
                                 break;
                             case 2:
                                 //chama listagem de aluno
@@ -59,6 +72,23 @@ public class Matricula {
                         switch(opcao){
                             case 1:
                                 //chama inclusão de turmas
+                                System.out.printf("INCLUIR TURMA\n");
+                                System.out.printf("-----------------------------------------\n");
+                                System.out.printf("Código da turma:");
+                                codturma = entrada.nextInt();
+                                System.out.printf("Sala:");
+                                sala = entrada.nextInt();
+                                entrada.nextLine();
+                                System.out.printf("Horario: ");
+                                horario = entrada.nextLine();
+                                System.out.printf("Status:");
+                                status = entrada.nextLine();
+                                
+                                Turma novaturma = new Turma(codturma, sala, horario, status);
+                                System.out.println(">>>>> Turma cadastrada <<<<<");
+                                System.out.println("\n\n\n\n");
+                                
+                                
                                 break;
                             case 2:
                                 //chama listagem de turmas

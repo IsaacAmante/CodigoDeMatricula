@@ -11,6 +11,13 @@ public class Aluno {
     private String nome;
     private List<Turma> turmas;
     
+    
+    public Aluno(int matricula, String nome){
+        this.matricula = matricula;
+        this.nome = nome;
+    }
+    
+    
     public boolean adicionarTurma(Turma turma){
         if (this.turmas.size() < 4) {
             return this.turmas.add(turma);
@@ -27,11 +34,7 @@ public class Aluno {
     public List<Turma> obterTurmas(){
         return turmas;
     }
-    
-    public Aluno(int matricula, String nome){
-        this.matricula = matricula;
-        this.nome = nome;
-    }
+
     
     public void definirMatricula(int matricula){
         this.matricula = matricula;

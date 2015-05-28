@@ -17,6 +17,15 @@ public class Turma {
     private List<Aluno> alunos;
     Professor professor;
     
+    
+    public Turma(int codTurma, int sala, String horario, String status){
+        this.codTurma = codTurma;
+        this.sala = sala;
+        this.horario = horario;
+        this.status = status;
+    }    
+    
+    
     public boolean incluirAluno(Aluno aluno){
         if(this.alunos.size() < 10){
             if(aluno.adicionarTurma(this)){
@@ -88,7 +97,5 @@ public class Turma {
         return professor;
     }
     
-    public Turma(int codTurma){
-        this.codTurma = codTurma;
-    }
+
 }
