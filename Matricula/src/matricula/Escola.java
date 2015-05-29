@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * @author Isaac
  */
 public class Escola {
-    public ArrayList<Aluno> listaAlunos = new ArrayList<>();
-    public ArrayList<Turma> listaTurmas = new ArrayList<>();
-    public ArrayList<Professor> listaProfessor = new ArrayList<>();
-    public ArrayList<Disciplina> listaDisciplina = new ArrayList<>();
-    public ArrayList<Nota> listaNota = new ArrayList<>();
+    private final ArrayList<Aluno> listaAlunos = new ArrayList<>();
+    private final ArrayList<Turma> listaTurmas = new ArrayList<>();
+    private final ArrayList<Professor> listaProfessor = new ArrayList<>();
+    private final ArrayList<Disciplina> listaDisciplina = new ArrayList<>();
+    private final ArrayList<Nota> listaNota = new ArrayList<>();
     
     public final int numMaxAlunosPorTurma = 10;
     public final int numMaxTurmasPorAlunos = 4;
@@ -26,19 +26,41 @@ public class Escola {
     public Escola() {
     }
     
+    public ArrayList<Aluno> obterListaAlunos() {
+        return listaAlunos; 
+    }
+    
+    public ArrayList<Turma> obterListaTurmas(){
+        return listaTurmas;
+    }
+    
+    public ArrayList<Professor> obterListaProfessores(){
+        return listaProfessor;
+    }
+    
+    public ArrayList<Disciplina> obterListaDisciplinas(){
+        return listaDisciplina;
+    }
+    
+    public ArrayList<Nota> obterListaNotas(){
+        return listaNota;
+    }
+    
     public void matriculaNovoAluno(int matricula, String nome){
         Aluno aluno = new Aluno(matricula, nome);
         listaAlunos.add(aluno);
     }
     
-    public void abriNovaTurma(int codTurma, int sala, String horario, String status){
-        Turma turma = new Turma(codTurma, sala, horario, status);
+    public void abriNovaTurma(int codTurma, int sala, String horario, String status, Professor professor){
+        Turma turma = new Turma(codTurma, sala, horario, status,professor);
+        professor.incluirTurma(turma);
         listaTurmas.add(turma);
     }
     
-    public void cadastraNovoProfessor(int codigo, String nome, String titulacao){
+    public Professor cadastraNovoProfessor(int codigo, String nome, String titulacao){
         Professor professor = new Professor(codigo, nome, titulacao);
         listaProfessor.add(professor);
+        return professor;
     }
     
     public void lancaNota(int ano, int semestre, double pontuacao, Aluno aluno, Disciplina disciplina){
@@ -76,5 +98,19 @@ public class Escola {
         }
     }
     
+    public boolean professorPodeMinistrarTurma(Professor professor){
+        return professor.podeMinistrarTurma(numMaxTurmasPorProfessor);
+    }
     
+    public boolean turmaEstaAberta(Turma turma){
+        return turma.estaAberta(numMaxAlunosPorTurma);
+    }
+    
+    public boolean alunoPodeMatricular(Aluno aluno){
+        return aluno.podeMatricular(numMaxTurmasPorAlunos);
+    }
+    
+    public boolean turmaPodeOfertarDisciplina(Turma turma){
+        return turma.podeOfertarDisciplina(numMaxDisciplinasPorTurma);
+    }
 }

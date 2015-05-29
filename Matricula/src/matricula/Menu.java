@@ -80,10 +80,13 @@ public class Menu {
         System.out.println("");
         System.out.println("1 - Incluir Turma");
         System.out.println("2 - Listar Turmas");
-        System.out.println("3 - Voltar");
+        System.out.println("3 - Adicionar aluno na turma");
+        System.out.println("4 - Lista aluno na turma");
+        System.out.println("5 - Listar as turmas de um aluno");
+        System.out.println("6 - Voltar");
         
         System.out.println("Informe uma opção: ");
-        return obterEntradaDoUsuario(3);
+        return obterEntradaDoUsuario(7);
     }
     
     

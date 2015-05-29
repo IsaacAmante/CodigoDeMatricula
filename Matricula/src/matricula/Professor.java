@@ -16,6 +16,11 @@ public class Professor {
 
     public Professor(){
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
     
     public Professor(int codigo, String nome, String titulacao){
         this.codigo = codigo;

@@ -21,11 +21,12 @@ public class Turma {
     public Turma(){
     }
     
-    public Turma(int codTurma, int sala, String horario, String status){
+    public Turma(int codTurma, int sala, String horario, String status, Professor professor){
         this.codTurma = codTurma;
         this.sala = sala;
         this.horario = horario;
         this.status = status;
+        this.professor = professor;
     }    
     
     public boolean incluirAluno(Aluno aluno){
