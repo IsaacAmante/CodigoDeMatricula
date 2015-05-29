@@ -1,6 +1,6 @@
 package matricula;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Isaac
@@ -9,22 +9,23 @@ import javax.swing.JOptionPane;
 public class Aluno {
     private int matricula;
     private String nome;
-    private List<Turma> turmas;
-    
+    private ArrayList<Turma> turmas = new ArrayList<>();
+    private ArrayList<Nota> notas = new ArrayList<>();
+
+    public Aluno(){
+    }
     
     public Aluno(int matricula, String nome){
         this.matricula = matricula;
         this.nome = nome;
     }
-    
-    
-    public boolean adicionarTurma(Turma turma){
-        if (this.turmas.size() < 4) {
-            return this.turmas.add(turma);
-        } else {
-            JOptionPane.showConfirmDialog(null, "Foi atingido o limite de turmas para esse aluno(4), não é possivel inseri-lo em outra turma.");
-            return false;
-        }
+
+    public boolean podeMatricular(int numMax){
+        return this.turmas.size() < numMax;
+    }    
+  
+    public boolean incluirTurma(Turma turma){
+        return this.turmas.add(turma);
     }
     
     public boolean removeTurma(Turma turma){
@@ -35,7 +36,6 @@ public class Aluno {
         return turmas;
     }
 
-    
     public void definirMatricula(int matricula){
         this.matricula = matricula;
     }
@@ -50,5 +50,17 @@ public class Aluno {
     
     public String obterNome(){
         return this.nome;
+    }
+    
+    public boolean adicionarNota(Nota nota){
+        return this.notas.add(nota);
+    }
+    
+    public boolean removeNota(Nota nota) {
+        return this.notas.remove(nota);
+    }
+    
+    public ArrayList<Nota> obterNota(){
+        return notas;
     }
 }

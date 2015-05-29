@@ -11,9 +11,19 @@ package matricula;
  * @author Isaac
  */
 public class Nota {
-    private int ano;
-    private int semestre;
+    private final int ano;
+    private final int semestre;
     private double nota;
+    private final Aluno aluno;
+    private final Disciplina disciplina;
+    
+    public Nota(int ano, int semestre, double nota, Aluno aluno, Disciplina disciplina) {
+        this.ano = ano;
+        this.semestre = semestre;
+        this.nota = nota;
+        this.aluno = aluno;
+        this.disciplina = disciplina;
+    }
     
     public void definirNota(double nota){
         this.nota = nota;
@@ -21,7 +31,6 @@ public class Nota {
     
     public double obterNota(){
         return nota;
-        
     }
 }
  
