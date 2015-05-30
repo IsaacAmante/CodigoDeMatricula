@@ -23,10 +23,15 @@ public class Matricula {
     public static void main(String[] args) throws Exception {
         
         //para efeito de testes
-        escola.matriculaNovoAluno(121, "sdfkds");
+        //escola.matriculaNovoAluno(1, "Ari");
+        //escola.matriculaNovoAluno(2, "Leo");
        // escola.cadastraNovoProfessor(23432, "flkgjdf", "klj");
-        escola.abriNovaTurma(12, 54, "34", "dsfsd",escola.cadastraNovoProfessor(23432, "flkgjdf", "klj"));
-       //para efeito de testes
+        
+        //escola.abriNovaTurma(1, 1, "07:30", "ok", escola.cadastraNovoProfessor(1, "Savio", "mestre"));
+        //escola.abriNovaTurma(2, 2, "08:30", "ok", escola.cadastraNovoProfessor(1, "Savio", "mestre"));
+        //escola.abriNovaTurma(3, 2, "09:30", "ok", escola.cadastraNovoProfessor(2, "Bayma", "mestre"));
+       
+        
         
         
         int opcao1 = 0;
@@ -177,11 +182,14 @@ public class Matricula {
                         opcao2 = menuprincipal.exibeMenuNotas();
                         switch(opcao2){
                             case 1:
-                                //chama inclusão de notas
+                                incluirNota();
                                 break;
                                 
                             case 2:
                                 //chama listagem de notas
+                                
+                                
+                                
                                 break;
                                 
                             case 3:
@@ -362,12 +370,16 @@ public class Matricula {
                         }
                         else{
                             //inclui o aluno na lista de alunos da classe turma
+                            if(!escola.vinculaAlunoTurma(alun, turm))
+                            {
+                            /*
                             if(turm.incluirAluno(alun)){
                                 JOptionPane.showMessageDialog(null, "Aluno incluido na turma com sucesso"); 
                                 //inclui a turma na lista de turmas da classe aluno
                                 alun.incluirTurma(turm);
-                            }
-                            else{
+                            }*/
+                                
+                            
                                 JOptionPane.showMessageDialog(null, "Houve um erro ao adicionar o aluno à turma"); 
                             }
                         }
@@ -449,11 +461,6 @@ public class Matricula {
                     System.out.printf("Carga horária.......: ");
                     int Dcarga = obterEntradaDoUsuarioInt();
 
-                    /*Disciplina novadisciplina = new Disciplina(Dcodigo, Dnome, Dcarga);
-                    novadisciplina.definirTurma(turm);
-                    listaDisciplina.add(novadisciplina);
-                    turm.incluirDisciplina(novadisciplina);*/
-                    
                     escola.novaDisciplina(Dcodigo, Dnome, Dcarga, turm);
 
                     JOptionPane.showMessageDialog(null, "Disciplina cadastrada");
@@ -463,10 +470,110 @@ public class Matricula {
         }
     }    
     
-    
     public static void listarDisciplina() throws Exception{
         listaDisciplinaListarDisciplina("--------------Lista de Disciplinas--------------");
     }    
+    
+    
+    public static void incluirNota() throws Exception{
+        Aluno alun;
+        Disciplina disc;                             
+        Scanner entrada = new Scanner(System.in);
+        
+        System.out.printf("\n----------------Adicionar Notas----------------\n");
+
+        if(escola.obterListaAlunos().isEmpty() || escola.obterListaDisciplinas().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não existem Alunos ou Disciplinas cadastradas");
+        }
+        else{         
+            listaAlunosListarAlunos(">> Alunos disponíveis:");
+            
+            System.out.println("Informe a matricula do aluno: ");                  
+            int Amatricula = obterEntradaDoUsuarioInt();
+            alun = listaAlunosBuscarAluno(Amatricula);
+            if(alun == null){
+                JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum aluno com a matricula informada"); 
+            }                                    
+            else{
+               
+                listarDisciplinasAluno(alun, ">> Disciplinas disponíveis:");
+                
+                System.out.println("Informe o codigo da disciplina: ");                  
+                int Dcodigo = obterEntradaDoUsuarioInt();
+                disc = buscarDisciplinasAluno(alun, Dcodigo);
+
+                if(disc == null){
+                    JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma disciplina do aluno com o codigo informado"); 
+                }                                    
+                else{
+                    
+                    System.out.printf("Ano.................: ");
+                    int Nano = obterEntradaDoUsuarioInt();
+                    System.out.printf("Semestre............: ");
+                    int Nsemestre = obterEntradaDoUsuarioInt();
+                    System.out.printf("Nota................: ");
+                    double Nnota = entrada.nextDouble();
+
+                    escola.lancaNota(Nano, Nsemestre, Nnota, alun, disc);
+
+                    JOptionPane.showMessageDialog(null, "Nota cadastrada");
+                    System.out.println("\n\n\n\n");                    
+
+                }
+                
+            }
+
+        }    
+    
+    }    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public static Aluno listaAlunosBuscarAluno(int matricula){
         for(Aluno aluno : escola.obterListaAlunos()){
@@ -542,6 +649,47 @@ public class Matricula {
         }    
         System.out.println("\n\n");
     }    
+
+
+    
+    
+    
+    
+    public static void listarDisciplinasAluno(Aluno aluno, String titulo){
+        System.out.printf(titulo + "\n");
+        
+        for(Turma turma : aluno.obterTurmas()){
+            
+            
+            //System.out.println("Turma " + turma.obterCodTurma() + "\n");                          
+            for(Disciplina disciplina : turma.obterDisciplinas()){
+                System.out.println("Codigo " + disciplina.obterCodigo() + ", Nome " + disciplina.obterNome() + "\n");   //, Turma " + turma.obterCodTurma() + "\n");                          
+            }
+        }
+    }
+    
+    public static Disciplina buscarDisciplinasAluno(Aluno aluno, int codigo){
+        for(Turma turma : aluno.obterTurmas()){
+            for(Disciplina disciplina : turma.obterDisciplinas()){
+                if(disciplina.obterCodigo() == codigo){
+                    return disciplina;
+                }
+            }
+        }
+        return null;
+    } 
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    
     
     public static void limparTela() throws Exception{
         System.out.println("\n\n\n\n\n");                     
