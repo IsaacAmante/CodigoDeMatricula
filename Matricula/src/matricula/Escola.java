@@ -46,16 +46,36 @@ public class Escola {
         return listaNota;
     }
     
+    /*
     public void matriculaNovoAluno(int matricula, String nome){
         Aluno aluno = new Aluno(matricula, nome);
         listaAlunos.add(aluno);
     }
+    */
     
+    public Aluno matriculaNovoAluno(int matricula, String nome){
+        Aluno aluno = new Aluno(matricula, nome);
+        listaAlunos.add(aluno);
+        return aluno;
+    }
+
+    
+    
+    /*
     public void abriNovaTurma(int codTurma, int sala, String horario, String status, Professor professor){
-        Turma turma = new Turma(codTurma, sala, horario, status,professor);
+        Turma turma = new Turma(codTurma, sala, horario, status, professor);
         professor.incluirTurma(turma);
         listaTurmas.add(turma);
+    }*/
+    
+    public Turma abrirNovaTurma(int codTurma, int sala, String horario, String status, Professor professor){
+        Turma turma = new Turma(codTurma, sala, horario, status, professor);
+        professor.incluirTurma(turma);
+        listaTurmas.add(turma);
+        return turma;
     }
+    
+    
     
     public Professor cadastraNovoProfessor(int codigo, String nome, String titulacao){
         Professor professor = new Professor(codigo, nome, titulacao);
@@ -78,6 +98,7 @@ public class Escola {
         }
     }
     
+    /*
     public boolean novaDisciplina(int codigo, String nome, int cargaHoraria, Turma turma){
         if(turma.podeOfertarDisciplina(numMaxDisciplinasPorTurma)){
             Disciplina disciplina = new Disciplina(codigo, nome, cargaHoraria, turma);
@@ -87,6 +108,20 @@ public class Escola {
             return false;
         }
     }
+    */
+    
+    
+    public Disciplina novaDisciplina(int codigo, String nome, int cargaHoraria, Turma turma){
+        if(turma.podeOfertarDisciplina(numMaxDisciplinasPorTurma)){
+            Disciplina disciplina = new Disciplina(codigo, nome, cargaHoraria, turma);
+            listaDisciplina.add(disciplina);
+            turma.incluirDisciplina(disciplina);
+            return disciplina;
+        } else {
+            return null;
+        }
+    }    
+    
     
     public boolean definirProfessorTurma(Professor professor, Turma turma){
         if(professor.podeMinistrarTurma(numMaxTurmasPorProfessor)){

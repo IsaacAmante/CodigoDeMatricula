@@ -1,6 +1,7 @@
 package matricula;
 import java.awt.HeadlessException;
 import java.util.*;
+import static matricula.Matricula.limparTela;
 
 public class Menu {
     
@@ -24,7 +25,9 @@ public class Menu {
     }
     
     public int exibeMenuPrincipal(){
-        System.out.println("MENU PRINCIPAL");
+        Matricula.limparTela();
+        Matricula.cabecalho1("SISTEMA DE CONTROLE DE NOTAS ESCOLARES", 120);
+        Matricula.cabecalho1("MENU PRINCIPAL", 120);
         System.out.println("");
         System.out.println("1 - Cadastro de Alunos");
         System.out.println("2 - Cadastro de Turmas");
@@ -32,18 +35,22 @@ public class Menu {
         System.out.println("4 - Cadastro de Professor");
         System.out.println("5 - Cadastro de Notas");
         System.out.println("6 - Sair");
-        
+        Matricula.linhaDivisoria(120);
+       
         System.out.println("Informe uma opção: ");
         return obterEntradaDoUsuario(6);
     }
     
     
     public int exibeMenuAlunos(){
-        System.out.println("CADASTRO DE ALUNOS");
+        Matricula.limparTela();
+        Matricula.cabecalho1("CADASTRO DE ALUNOS", 120);
         System.out.println("");
         System.out.println("1 - Incluir Aluno");
         System.out.println("2 - Listar Alunos");
         System.out.println("3 - Voltar");
+        Matricula.linhaDivisoria(120);
+
         
         System.out.println("Informe uma opção: ");
         return obterEntradaDoUsuario(3);
@@ -51,11 +58,13 @@ public class Menu {
     
     
     public int exibeMenuProfessor(){
-        System.out.println("CADASTRO DE PROFESSORES");
+        Matricula.limparTela();
+        Matricula.cabecalho1("CADASTRO DE PROFESSORES", 120);
         System.out.println("");
         System.out.println("1 - Incluir Professor");
         System.out.println("2 - Listar Professores");
         System.out.println("3 - Voltar");
+        Matricula.linhaDivisoria(120);
         
         System.out.println("Informe uma opção: ");
         return obterEntradaDoUsuario(3);
@@ -63,11 +72,13 @@ public class Menu {
         
     
     public int exibeMenuDisciplina(){
-        System.out.println("CADASTRO DE DISCIPLINAS");
+        Matricula.limparTela();
+        Matricula.cabecalho1("CADASTRO DE DISCIPLINAS", 120);
         System.out.println("");
         System.out.println("1 - Incluir Disciplina");
         System.out.println("2 - Listar Disciplinas");
         System.out.println("3 - Voltar");
+        Matricula.linhaDivisoria(120);
         
         System.out.println("Informe uma opção: ");
         return obterEntradaDoUsuario(3);
@@ -76,7 +87,8 @@ public class Menu {
     
     
     public int exibeMenuTurmas(){
-        System.out.println("CADASTRO DE TURMAS");
+        Matricula.limparTela();
+        Matricula.cabecalho1("CADASTRO DE TURMAS", 120);
         System.out.println("");
         System.out.println("1 - Incluir Turma");
         System.out.println("2 - Listar Turmas");
@@ -84,22 +96,30 @@ public class Menu {
         System.out.println("4 - Lista aluno na turma");
         System.out.println("5 - Listar as turmas de um aluno");
         System.out.println("6 - Voltar");
+        Matricula.linhaDivisoria(120);
         
         System.out.println("Informe uma opção: ");
-        return obterEntradaDoUsuario(7);
+        return obterEntradaDoUsuario(6);
     }
     
     
     public int exibeMenuNotas(){
-        System.out.println("CADASTRO DE NOTAS");
+        Matricula.limparTela();
+        Matricula.cabecalho1("CADASTRO DE NOTAS", 120);
         System.out.println("");
         System.out.println("1 - Incluir Nota");
         System.out.println("2 - Listar Notas");
-        System.out.println("3 - Voltar");
+        System.out.println("3 - Listar Notas de um Aluno");
+        System.out.println("4 - Voltar");
+        Matricula.linhaDivisoria(120);
         
         System.out.println("Informe uma opção: ");
-        return obterEntradaDoUsuario(3);
+        return obterEntradaDoUsuario(4);
     }
+    
+    
+    
+    
     
     
 }

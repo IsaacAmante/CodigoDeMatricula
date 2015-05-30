@@ -22,17 +22,33 @@ public class Matricula {
     
     public static void main(String[] args) throws Exception {
         
-        //para efeito de testes
-        //escola.matriculaNovoAluno(1, "Ari");
-        //escola.matriculaNovoAluno(2, "Leo");
-       // escola.cadastraNovoProfessor(23432, "flkgjdf", "klj");
+        //Inicialização de alguns objetos para efeito de testes
+        Aluno a1 = escola.matriculaNovoAluno(1, "Ari");
+        Aluno a2 = escola.matriculaNovoAluno(2, "Leo");
+        Aluno a3 = escola.matriculaNovoAluno(3, "Marcelino");
+        Aluno a4 = escola.matriculaNovoAluno(4, "Izaac");
         
-        //escola.abriNovaTurma(1, 1, "07:30", "ok", escola.cadastraNovoProfessor(1, "Savio", "mestre"));
-        //escola.abriNovaTurma(2, 2, "08:30", "ok", escola.cadastraNovoProfessor(1, "Savio", "mestre"));
-        //escola.abriNovaTurma(3, 2, "09:30", "ok", escola.cadastraNovoProfessor(2, "Bayma", "mestre"));
-       
+        Professor p1 = escola.cadastraNovoProfessor(1, "Rafael Bayma", "Doutor");
+        Professor p2 = escola.cadastraNovoProfessor(2, "Viviane", "Mestre");
+        Professor p3 = escola.cadastraNovoProfessor(3, "Savio", "Mestre");
         
+        Turma t1 = escola.abrirNovaTurma(1, 1, "07:30", "ok", p1);
+        Turma t2 = escola.abrirNovaTurma(2, 2, "16:30", "ok", p1);
+        Turma t3 = escola.abrirNovaTurma(3, 3, "07:30", "ok", p2);
+        Turma t4 = escola.abrirNovaTurma(4, 4, "16:30", "ok", p3);
         
+        Disciplina d1 = escola.novaDisciplina(1, "Matematica", 40, t1);
+        Disciplina d2 = escola.novaDisciplina(2, "Matematica", 40, t2);
+        Disciplina d3 = escola.novaDisciplina(3, "Ingles", 40, t1);
+        Disciplina d4 = escola.novaDisciplina(4, "Frances", 40, t3);
+        Disciplina d5 = escola.novaDisciplina(4, "Portugues", 40, t4);
+        
+        escola.vinculaAlunoTurma(a1, t1);
+        escola.vinculaAlunoTurma(a1, t3);
+        escola.vinculaAlunoTurma(a2, t1);
+        escola.vinculaAlunoTurma(a3, t1);
+        escola.vinculaAlunoTurma(a2, t4);
+
         
         int opcao1 = 0;
         int opcao2 = 0;
@@ -178,7 +194,7 @@ public class Matricula {
                 case 5:
                     
                     opcao2 = 0;
-                    while(opcao2 != 3){
+                    while(opcao2 != 4){
                         opcao2 = menuprincipal.exibeMenuNotas();
                         switch(opcao2){
                             case 1:
@@ -187,12 +203,15 @@ public class Matricula {
                                 
                             case 2:
                                 //chama listagem de notas
-                                
-                                
-                                
+                                listarNotas();
                                 break;
                                 
                             case 3:
+                                //chama listagem de notas
+                                listarNotasAluno();
+                                break;
+
+                            case 4:
                                 limparTela();
                                 break;
                                 
@@ -216,9 +235,13 @@ public class Matricula {
 
             
         }
-    
-    
+           
     }
+    
+    
+    
+       
+    
     
     public static int obterEntradaDoUsuarioInt(){
         Scanner entrada = new Scanner(System.in);
@@ -233,31 +256,39 @@ public class Matricula {
         }
     }
     
+    //tela de inclusao de aluno
     public static void incluirAluno() throws Exception{
+        limparTela();
         Scanner entrada = new Scanner(System.in);
         int Amatricula;
         String Anome;
-        
-        System.out.printf("\n---------------Incluir Aluno-------------\n");
-        
+       
+        cabecalho1("Incluir Aluno", 120);
         System.out.printf("Matricula......: ");
         Amatricula = obterEntradaDoUsuarioInt();
         System.out.printf("Nome...........: ");
         Anome = entrada.nextLine();
         escola.matriculaNovoAluno(Amatricula, Anome);
         JOptionPane.showMessageDialog(null, "Aluno cadastrado"); 
-        System.out.println("\n\n\n\n");
+        //System.out.println("\n\n\n\n");
     }
     
+    //tela de listagem de alunos
     public static void listarAluno() throws Exception{
-        listaAlunosListarAlunos("---------------Lista de Alunos-------------");
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        cabecalho1("Lista de Alunos", 120);
+        listaAlunosListarAlunos();
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();        
     }
     
+    //tela de inclusao de professor
     public static void incluirProfessor() throws Exception{
+        limparTela();
         Scanner entrada = new Scanner(System.in);
         
-        System.out.printf("\n-------------Incluir Professor------------\n");
-
+        cabecalho1("Incluir Professor", 120);
         System.out.printf("Código do professor: ");
         int Pcodigo = obterEntradaDoUsuarioInt();
         System.out.printf("Nome...............: ");
@@ -266,41 +297,52 @@ public class Matricula {
         String Ptitulacao = entrada.nextLine();
 
         escola.cadastraNovoProfessor(Pcodigo, Pnome, Ptitulacao);
-
         JOptionPane.showMessageDialog(null, "Professor cadastrado"); 
-        System.out.println("\n\n\n\n");         
     }
 
+    //tela de listagem de professor
     public static void listarProfessor() throws Exception{
-        listaProfessorListarProfessores("------------Lista de Professores-----------");
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        cabecalho1("Lista de Professores", 120);
+        listaProfessorListarProfessores();
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();          
     }
     
+    //tela de inclusao de turma
     public static void incluirTurma() throws Exception{
+        limparTela();
         Scanner entrada = new Scanner(System.in);
         Professor prof;                                
-        System.out.printf("\n---------------Incluir Turma-------------\n");
+        cabecalho1("Incluir Turma", 120);
 
+        //verifica se existe algum professor cadastrado
         if(escola.obterListaProfessores().isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem profesores cadastrados");
-            
         }
         else{
-            listaProfessorListarProfessores(">> Professores disponíveis:");
+            //lista os professores e pede que informe o codigo de um
+            cabecalho1("Professores Disponiveis", 40);
+            listaProfessorListarProfessores();
             
             System.out.printf("Informe o codigo do professor:");
             int Pcodigo = obterEntradaDoUsuarioInt();
             prof = listaProfessorBuscarProfessor(Pcodigo);
             
+            //verifica se informou um codigo valido
             if(prof == null){
                 JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum professor com o codigo informado"); 
             }
             else{
                 
+                //verifica se o professor já atingiu o limite de turmas que pode lecionar
                 if(!escola.professorPodeMinistrarTurma(prof)){
                     JOptionPane.showMessageDialog(null, "O professor informado já atingiu o limite de turmas"); 
                 }
                 else{
-                
+
+                    //exibe o formulario
                     System.out.printf("Código da turma: ");
                     int TcodTurma = obterEntradaDoUsuarioInt();
                     System.out.printf("Sala...........: ");
@@ -309,40 +351,47 @@ public class Matricula {
                     String Thorario = entrada.nextLine();
                     System.out.printf("Status.........:");
                     String Tstatus = entrada.nextLine();
-
-                    /*Turma novaturma = new Turma(TcodTurma, Tsala, Thorario, Tstatus);
-                    novaturma.definirProfessor(prof);
-                    prof.incluirTurma(novaturma);*/
                     
-                    escola.abriNovaTurma(TcodTurma, Tsala, Thorario, Tstatus, prof);
-
+                    escola.abrirNovaTurma(TcodTurma, Tsala, Thorario, Tstatus, prof);
                     JOptionPane.showMessageDialog(null, "Turma cadastrada"); 
-                    System.out.println("\n\n\n\n");                 
                 }
                 
             }
         }
     }
     
+    //tela de listagem de turmas
     public static void listarTurma() throws Exception{
-        listaTurmaListarTurmas("--------------Lista de Turmas--------------");
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        cabecalho1("Lista de Turmas", 120);
+        listaTurmaListarTurmas();
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine(); 
     }
 
+    //tela de inclusão de um aluno em uma turma
     public static void adicionarAlunoTurma() throws Exception{
+        limparTela();
         Turma turm;                             
         Aluno alun;
-
-        System.out.printf("\n--------Incluir Alunos na Turma----------\n");
-
+        
+        cabecalho1("Incluir Alunos na Turma", 120);
+        
+        //verifica se existem alunos e turmas cadastradas
         if(escola.obterListaAlunos().isEmpty() || escola.obterListaTurmas().isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem Turmas ou alunos cadastrados");
         }
         else{                                
-            listaTurmaListarTurmas(">> Turmas disponíveis:");
+            //lista as turmas e pede que informe o codigo de uma
+            cabecalho1("Turmas disponiveis:", 40);
+            listaTurmaListarTurmas();
             
             System.out.println("Informe o codigo da turma: ");                  
             int TcodTurma = obterEntradaDoUsuarioInt();
             turm = listaTurmaBuscarTurma(TcodTurma);
+            
+            //verifica se informou um codigo valido
             if(turm == null){
                 JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma turma com o codigo informado"); 
             }                                    
@@ -353,12 +402,15 @@ public class Matricula {
                     JOptionPane.showMessageDialog(null, "A turma já está cheia"); 
                 }
                 else{
-                
-                    listaAlunosListarAlunos(">> Alunos disponíveis:");
+                    
+                    //lista os alunos e pde que informe a matricula de um
+                    cabecalho1("Alunos disponiveis:", 120);
+                    listaAlunosListarAlunos();
                     System.out.println("Informe a matricula do aluno: ");                  
                     int Amatricula = obterEntradaDoUsuarioInt();
                     alun = listaAlunosBuscarAluno(Amatricula);
                     
+                    //verifica se informou uma matricula valida
                     if(alun == null){
                         JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum aluno com a matricula informada"); 
                     }                                    
@@ -372,14 +424,6 @@ public class Matricula {
                             //inclui o aluno na lista de alunos da classe turma
                             if(!escola.vinculaAlunoTurma(alun, turm))
                             {
-                            /*
-                            if(turm.incluirAluno(alun)){
-                                JOptionPane.showMessageDialog(null, "Aluno incluido na turma com sucesso"); 
-                                //inclui a turma na lista de turmas da classe aluno
-                                alun.incluirTurma(turm);
-                            }*/
-                                
-                            
                                 JOptionPane.showMessageDialog(null, "Houve um erro ao adicionar o aluno à turma"); 
                             }
                         }
@@ -392,68 +436,113 @@ public class Matricula {
     
     }
 
+    //tela de listagem de alunos de uma determinada turma
     public static void listarAlunosTurma() throws Exception{
-        Turma turm = new Turma();
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        Turma turm;// = new Turma();
         
-        System.out.printf("\n--------Listar Alunos da Turma----------\n");
+        //lista as turmas e pede que informe o codigo de uma
+        cabecalho1("Listar Alunos da Turma", 120);
+        
+        cabecalho1("Turmas disponiveis:", 40);
+        listaTurmaListarTurmas();
+        
         System.out.printf("Informe o código da turma: ");
         int TcodTurma = obterEntradaDoUsuarioInt();
-
         turm = listaTurmaBuscarTurma(TcodTurma);
+        
+        //verifica se informou um codigo valido
         if(turm == null){
             JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma turma com o codigo informado"); 
         }         
         else{
+            //exibe a listagem
+            System.out.printf("\nAlunos da Turma " + turm.obterCodTurma() + "\n");
+            
+            System.out.printf(preencheTexto("Matricula", 10, "e"));
+            System.out.printf(preencheTexto("nome", 20, "e") + "\n");
             for (Aluno aluno : turm.obterAlunos()) {
-                System.out.println("Matricula " + aluno.obterMatricula() + ", Nome " + aluno.obterNome() + "\n");
+                //System.out.printf("Matricula " + aluno.obterMatricula() + ", Nome " + aluno.obterNome() + "\n");
+                System.out.printf(preencheTexto(Integer.toString(aluno.obterMatricula()), 10, "e"));
+                System.out.printf(preencheTexto(aluno.obterNome(), 20, "e") + "\n");
             }            
         }
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();         
     }
-    
+
+    //tela de listagema de turmas de um determinado aluno
     public static void listarTurmasAluno() throws Exception{
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
         Aluno alun = new Aluno();
        
-        System.out.printf("\n--------Listar Turmas de um Aluno----------\n");
+        //lista os alunos e pede que informe a matricula um
+        cabecalho1("Listar Turmas de um Aluno", 120);
+        
+        cabecalho1("Alunos disponiveis:", 40);
+        listaAlunosListarAlunos();
         System.out.printf("Informe a matricula do aluno: ");
         int Amatricula = obterEntradaDoUsuarioInt();
-
         alun = listaAlunosBuscarAluno(Amatricula);
+        
+        //verifica se informou uma matricula valida 
         if(alun == null){
             JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum aluno com a matricula informada"); 
         }         
         else{
+            
+            //exibe a listagem
+            System.out.printf("\nTurmas do aluno " + alun.obterNome() + "\n");
+            
+            System.out.printf(preencheTexto("Codigo", 10, "e"));
+            System.out.printf(preencheTexto("Sala", 10, "e"));
+            System.out.printf(preencheTexto("Professor", 20, "e") + "\n");
             for (Turma turma : alun.obterTurmas()) {
-                System.out.println("Codigo " + turma.obterCodTurma() + ", Sala " + turma.obterSala() + ", Professor " + turma.obterProfessor().obterNome() + "\n");  
+                //System.out.printf("Codigo " + turma.obterCodTurma() + ", Sala " + turma.obterSala() + ", Professor " + turma.obterProfessor().obterNome() + "\n");  
+                System.out.printf(preencheTexto(Integer.toString(turma.obterCodTurma()), 10, "e"));
+                System.out.printf(preencheTexto(Integer.toString(turma.obterSala()), 10, "e"));
+                System.out.printf(preencheTexto(turma.obterProfessor().obterNome(), 10, "e") + "\n");
             }            
         }
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();         
     }    
     
+    //tela de inclusao de disciplina
     public static void incluirDisciplina() throws Exception{
+        limparTela();
         Turma turm;
         Scanner entrada = new Scanner(System.in);
-        System.out.printf("\n---------------Incluir Disciplina-------------\n");
+        cabecalho1("Incluir Disciplina", 120);
 
+        //verifica se ja existem turmas cadastradas
         if(escola.obterListaTurmas().isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem turmas cadastradas");
         }
         else{
-            
-            listaTurmaListarTurmas(">> Turmas disponíveis:");
+            //lista as turmas e pede que informe o codigo de uma
+            cabecalho1("Turmas disponiveis:", 40);
+            listaTurmaListarTurmas();
             
             System.out.printf("Informe o codigo da turma:");
             int TcodTurma = obterEntradaDoUsuarioInt();
             turm = listaTurmaBuscarTurma(TcodTurma);
             
+            //verifica se informou um codigo valido
             if(turm == null){
                 JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma turma com o codigo informado"); 
             }
             else{
                 
+                //verifica se a turma ja atingiu o numero maximo de disciplinas
                 if(!escola.turmaPodeOfertarDisciplina(turm)){
                     JOptionPane.showMessageDialog(null, "A turma informada já atingiu o limite de disciplinas ofertadas"); 
                 }
                 else{
-                
+                    
+                    //exibe o formulario
                     System.out.printf("Código da disciplina: ");
                     int Dcodigo = obterEntradaDoUsuarioInt();
                     System.out.printf("Nome................: ");
@@ -462,51 +551,65 @@ public class Matricula {
                     int Dcarga = obterEntradaDoUsuarioInt();
 
                     escola.novaDisciplina(Dcodigo, Dnome, Dcarga, turm);
-
                     JOptionPane.showMessageDialog(null, "Disciplina cadastrada");
-                    System.out.println("\n\n\n\n");
                 }
             }
         }
     }    
     
+    //tela de listagem de disciplinas
     public static void listarDisciplina() throws Exception{
-        listaDisciplinaListarDisciplina("--------------Lista de Disciplinas--------------");
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        cabecalho1("Lista de Disciplinas", 120);
+        listaDisciplinaListarDisciplina();
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();          
     }    
     
-    
+    //tela de inclusao de notas
     public static void incluirNota() throws Exception{
+        limparTela();
         Aluno alun;
         Disciplina disc;                             
         Scanner entrada = new Scanner(System.in);
+        cabecalho1("Incluir Notas", 120);
         
-        System.out.printf("\n----------------Adicionar Notas----------------\n");
-
+        //verifica se existem alunos e notas cadastradas
         if(escola.obterListaAlunos().isEmpty() || escola.obterListaDisciplinas().isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem Alunos ou Disciplinas cadastradas");
         }
         else{         
-            listaAlunosListarAlunos(">> Alunos disponíveis:");
+            
+            //lista os alunos e pede que informe a matricula de um
+            cabecalho1("Alunos disponiveis:", 40);
+            listaAlunosListarAlunos();
             
             System.out.println("Informe a matricula do aluno: ");                  
             int Amatricula = obterEntradaDoUsuarioInt();
             alun = listaAlunosBuscarAluno(Amatricula);
+            
+            //verifica se informou uma matricula valida
             if(alun == null){
                 JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum aluno com a matricula informada"); 
             }                                    
             else{
                
-                listarDisciplinasAluno(alun, ">> Disciplinas disponíveis:");
+                //lista as disciplinas disponiveis para o aluno e pede que informe o codigo de uma
+                cabecalho1("Disciplinas disponíveis para o aluno: " + alun.obterNome(), 50);
+                listarDisciplinasAluno(alun);
                 
                 System.out.println("Informe o codigo da disciplina: ");                  
                 int Dcodigo = obterEntradaDoUsuarioInt();
                 disc = buscarDisciplinasAluno(alun, Dcodigo);
-
+                
+                //verifica se informou codigo valido
                 if(disc == null){
                     JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma disciplina do aluno com o codigo informado"); 
                 }                                    
                 else{
                     
+                    //exibe o formulario
                     System.out.printf("Ano.................: ");
                     int Nano = obterEntradaDoUsuarioInt();
                     System.out.printf("Semestre............: ");
@@ -515,9 +618,8 @@ public class Matricula {
                     double Nnota = entrada.nextDouble();
 
                     escola.lancaNota(Nano, Nsemestre, Nnota, alun, disc);
-
                     JOptionPane.showMessageDialog(null, "Nota cadastrada");
-                    System.out.println("\n\n\n\n");                    
+                    //System.out.println("\n\n\n\n");                    
 
                 }
                 
@@ -529,37 +631,60 @@ public class Matricula {
     
     
     
+    public static void listarNotas() throws Exception{
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        cabecalho1("Lista de Notas", 120);
+        listaNotaListarNotas();
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();         
+    }
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public static void listarNotasAluno() throws Exception{
+        limparTela();
+        Scanner entrada = new Scanner(System.in);
+        Aluno alun = new Aluno();
+       
+        cabecalho1("Listar Notas de um Aluno", 120);
+        
+        cabecalho1("Alunos disponiveis:", 40);
+        listaAlunosListarAlunos();
+        System.out.printf("Informe a matricula do aluno: ");
+        int Amatricula = obterEntradaDoUsuarioInt();
+
+        alun = listaAlunosBuscarAluno(Amatricula);
+        if(alun == null){
+            JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum aluno com a matricula informada"); 
+        }         
+        else{
+            System.out.printf("\nNotas do aluno " + alun.obterNome() + "\n");
+            
+            System.out.printf(preencheTexto("Turma", 10, "e"));
+            System.out.printf(preencheTexto("Disciplina", 20, "e"));        
+            System.out.printf(preencheTexto("Aluno", 20, "e"));        
+            System.out.printf(preencheTexto("Ano", 10, "d"));   
+            System.out.printf(preencheTexto("Semestre", 10, "d"));   
+            System.out.printf(preencheTexto("Nota", 10, "d") + "\n");   
+            
+            for(Nota nota : escola.obterListaNotas()){
+                if(nota.obterAluno() == alun){
+                    //System.out.printf("Turma " + nota.obterDisciplina().obterTurma().obterCodTurma() + ", Disciplina " + nota.obterDisciplina().obterNome() + "Ano, " + nota.obterAno() + ", Semestre " + nota.obterSemestre() + ", Nota " + String.format("%3.1f", nota.obterNota()) + "\n");  
+                    
+                    System.out.printf(preencheTexto(Integer.toString(nota.obterDisciplina().obterTurma().obterCodTurma()), 10, "e"));
+                    System.out.printf(preencheTexto(nota.obterDisciplina().obterNome(), 20, "e"));
+                    System.out.printf(preencheTexto(nota.obterAluno().obterNome(), 20, "e"));
+                    System.out.printf(preencheTexto(Integer.toString(nota.obterAno()), 10, "d"));
+                    System.out.printf(preencheTexto(Integer.toString(nota.obterSemestre()), 10, "d"));
+                    System.out.printf(preencheTexto(Double.toString(nota.obterNota()), 10, "d") + "\n");            
+                    
+                }
+            }
+        }
+        System.out.println("\nPressione uma tecla para continuar");
+        entrada.nextLine();         
+    }      
     
     
     
@@ -584,12 +709,15 @@ public class Matricula {
         return null;
     }
     
-    public static void listaAlunosListarAlunos(String titulo){
-        System.out.println(titulo + "\n");
+    public static void listaAlunosListarAlunos(){
+        
+        System.out.printf(preencheTexto("Matricula", 15, "e"));
+        System.out.printf(preencheTexto("Nome", 20, "e") + "\n");
         for (Aluno aluno : escola.obterListaAlunos()) {
-            System.out.println("Matricula " + aluno.obterMatricula() + ", Nome " + aluno.obterNome() + "\n");
+            //System.out.printf("Matricula " + aluno.obterMatricula() + ", Nome " + aluno.obterNome() + "\n");
+            System.out.printf(preencheTexto(Integer.toString(aluno.obterMatricula()), 15, "e"));
+            System.out.printf(preencheTexto(aluno.obterNome(), 15, "e") + "\n");
         }        
-        System.out.println("\n\n");
     }
     
     public static Professor listaProfessorBuscarProfessor(int codigo){
@@ -601,12 +729,16 @@ public class Matricula {
         return null;
     }    
 
-    public static void listaProfessorListarProfessores(String titulo){
-        System.out.printf(titulo + "\n");
+    public static void listaProfessorListarProfessores(){
+        
+        System.out.printf(preencheTexto("Codigo", 10, "e"));
+        System.out.printf(preencheTexto("Nome", 20, "e") + "\n");
+        
         for (Professor professor : escola.obterListaProfessores()) {
-            System.out.println("Codigo " + professor.obterCodigo() + ", Nome " + professor.obterNome() + "\n");            
+            //System.out.printf("Codigo " + professor.obterCodigo() + ", Nome " + professor.obterNome() + "\n");            
+            System.out.printf(preencheTexto(Integer.toString(professor.obterCodigo()), 10, "e"));        
+            System.out.printf(preencheTexto(professor.obterNome(), 10, "e") + "\n");        
         }    
-        System.out.println("\n\n");
     }
     
     public static Turma listaTurmaBuscarTurma(int codTurma){
@@ -618,14 +750,21 @@ public class Matricula {
         return null;
     }    
 
-    public static void listaTurmaListarTurmas(String titulo){
+    public static void listaTurmaListarTurmas(){
         if(escola.obterListaTurmas().isEmpty()){
             System.out.println("Não existem turmas a serem listadas!");
         }
         else{
-            System.out.printf(titulo + "\n");// a partir do 2º + efeito de teste
+            
+            System.out.printf(preencheTexto("Codigo", 10, "e"));
+            System.out.printf(preencheTexto("Sala", 10, "e"));
+            System.out.printf(preencheTexto("Professor", 20, "e") + "\n");
+            
             for (Turma turma : escola.obterListaTurmas()) {
-                System.out.println("Codigo " + turma.obterCodTurma() + ", Sala " + turma.obterSala() + ", Professor " + turma.obterProfessor());
+                //System.out.printf("Codigo " + turma.obterCodTurma() + ", Sala " + turma.obterSala() + ", Professor " + turma.obterProfessor().obterNome() + "\n");
+                System.out.printf(preencheTexto(Integer.toString(turma.obterCodTurma()), 10, "e"));
+                System.out.printf(preencheTexto(Integer.toString(turma.obterSala()), 10, "e"));
+                System.out.printf(preencheTexto(turma.obterProfessor().obterNome(), 10, "e") + "\n");
             }
                 System.out.println("\n");
         }
@@ -642,28 +781,35 @@ public class Matricula {
         return null;
     }    
 
-    public static void listaDisciplinaListarDisciplina(String titulo){
-        System.out.printf(titulo + "\n");
+    public static void listaDisciplinaListarDisciplina(){
+        
+        System.out.printf(preencheTexto("Codigo", 10, "e"));
+        System.out.printf(preencheTexto("Nome", 20, "e"));
+        System.out.printf(preencheTexto("Carga Horaria", 10, "e") + "\n");
         for (Disciplina disciplina : escola.obterListaDisciplinas()) {
-            System.out.println("Codigo " + disciplina.obterCodigo() + ", Nome " + disciplina.obterNome() + ", Carga horaria " + disciplina.obterCargaHoraria() + "\n");  
+            //System.out.printf("Codigo " + disciplina.obterCodigo() + ", Nome " + disciplina.obterNome() + ", Carga horaria " + disciplina.obterCargaHoraria() + "\n");  
+            System.out.printf(preencheTexto(Integer.toString(disciplina.obterCodigo()), 10, "e"));
+            System.out.printf(preencheTexto(disciplina.obterNome(), 20, "e"));
+            System.out.printf(preencheTexto(Integer.toString(disciplina.obterCargaHoraria()), 10, "e") + "\n");
         }    
-        System.out.println("\n\n");
     }    
 
-
     
     
     
     
-    public static void listarDisciplinasAluno(Aluno aluno, String titulo){
-        System.out.printf(titulo + "\n");
+    public static void listarDisciplinasAluno(Aluno aluno){
         
+        System.out.printf(preencheTexto("Codigo", 10, "e"));
+        System.out.printf(preencheTexto("Nome", 20, "e"));
+        System.out.printf(preencheTexto("Turma", 10, "e") + "\n");
+
         for(Turma turma : aluno.obterTurmas()){
-            
-            
-            //System.out.println("Turma " + turma.obterCodTurma() + "\n");                          
             for(Disciplina disciplina : turma.obterDisciplinas()){
-                System.out.println("Codigo " + disciplina.obterCodigo() + ", Nome " + disciplina.obterNome() + "\n");   //, Turma " + turma.obterCodTurma() + "\n");                          
+                //System.out.printf("Codigo " + disciplina.obterCodigo() + ", Nome " + disciplina.obterNome() + "\n");   //, Turma " + turma.obterCodTurma() + "\n");                          
+                System.out.printf(preencheTexto(Integer.toString(disciplina.obterCodigo()), 10, "e"));
+                System.out.printf(preencheTexto(disciplina.obterNome(), 20, "e"));
+                System.out.printf(preencheTexto(Integer.toString(turma.obterCodTurma()), 10, "e") + "\n");
             }
         }
     }
@@ -681,22 +827,74 @@ public class Matricula {
         
         
         
+
+    public static void listaNotaListarNotas(){
         
+        System.out.printf(preencheTexto("Turma", 10, "e"));
+        System.out.printf(preencheTexto("Disciplina", 20, "e"));        
+        System.out.printf(preencheTexto("Aluno", 20, "e"));        
+        System.out.printf(preencheTexto("Ano", 10, "d"));   
+        System.out.printf(preencheTexto("Semestre", 10, "d"));   
+        System.out.printf(preencheTexto("Nota", 10, "d") + "\n");   
+        for (Nota nota : escola.obterListaNotas()) {
+            //System.out.printf("Turma " + nota.obterDisciplina().obterTurma().obterCodTurma() + ", Disciplina " + nota.obterDisciplina().obterNome() + ", Aluno " + nota.obterAluno().obterNome() + ", Ano " + nota.obterAno() + ", Semestre " + nota.obterSemestre() + ", Nota " + String.format("%3.1f", nota.obterNota()) + "\n");
+            
+            System.out.printf(preencheTexto(Integer.toString(nota.obterDisciplina().obterTurma().obterCodTurma()), 10, "e"));
+            System.out.printf(preencheTexto(nota.obterDisciplina().obterNome(), 20, "e"));
+            System.out.printf(preencheTexto(nota.obterAluno().obterNome(), 20, "e"));
+            System.out.printf(preencheTexto(Integer.toString(nota.obterAno()), 10, "d"));
+            System.out.printf(preencheTexto(Integer.toString(nota.obterSemestre()), 10, "d"));
+            System.out.printf(preencheTexto(Double.toString(nota.obterNota()), 10, "d") + "\n");
+        }    
+    }         
         
-        
-        
+   
     
     
     
-    
-    
-    
-    public static void limparTela() throws Exception{
-        System.out.println("\n\n\n\n\n");                     
+    //simula a limpeza de tela
+    public static void limparTela(){
+        for(int a = 0; a < 100; a++){
+            System.out.println("\n");                     
+        }
     }
     
+    //limpa a tela e retrona a mensagem de opcao invalida
     public static void opcaoInvalida() throws Exception{
         limparTela();
         System.out.println("Opção inválida");                                
     }
+    
+    
+    //preenche o texto com espaços para tabulacao
+    public static String preencheTexto(String texto, int tam, String alinhamento){
+        
+        //direita
+        if(alinhamento == "d") texto =  String.format("%" + tam + "s", texto);
+        
+        //esquerda
+        if(alinhamento == "e") texto = String.format("%-" + tam + "s", texto);
+        
+        return texto;
+    }
+    
+    
+    public static void cabecalho1(String texto, int tam){
+        String aux = " ";
+        linhaDivisoria(tam);
+        int inicio = (int)((tam - texto.length()) / 2);
+        for(int a = 1; a <= inicio; a++){
+            aux = aux + " ";
+        }
+        System.out.printf(aux + texto + "\n");
+        
+    }
+    
+    public static void linhaDivisoria(int tam){
+        for(int a = 1; a <= tam; a++){
+            System.out.printf("-");
+        }
+        System.out.printf("\n");
+    }
+    
 }

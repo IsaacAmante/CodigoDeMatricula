@@ -32,5 +32,23 @@ public class Nota {
     public double obterNota(){
         return nota;
     }
+    
+    public int obterAno(){
+        return ano;
+    }
+    
+    public int obterSemestre(){
+        return semestre;
+    }
+    
+    public Aluno obterAluno(){
+        return aluno;
+    }
+    
+    public Disciplina obterDisciplina(){
+        return disciplina;
+    }
+    
+    
 }
  

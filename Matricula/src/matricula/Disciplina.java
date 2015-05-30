@@ -50,9 +50,14 @@ public class Disciplina {
     public String obterNome(){
         return this.nome;
     }
-    
-    
+   
     public void definirTurma(Turma turma){
         this.turma = turma;
     }
+
+    public Turma obterTurma(){
+        return this.turma;
+    }
+
+
 }
