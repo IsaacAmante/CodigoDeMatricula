@@ -86,10 +86,12 @@ public class Escola {
     public void lancaNota(int ano, int semestre, double pontuacao, Aluno aluno, Disciplina disciplina){
         Nota nota = new Nota(ano, semestre, pontuacao, aluno, disciplina);
         listaNota.add(nota);
+        disciplina.addNota(nota);
+        aluno.addNota(nota);
     }
     
     public boolean vinculaAlunoTurma(Aluno aluno, Turma turma){
-        if(aluno.podeMatricular(numMaxAlunosPorTurma) && turma.estaAberta(numMaxAlunosPorTurma)) {
+        if(aluno.podeMatricular(numMaxTurmasPorAlunos) && turma.estaAberta(numMaxAlunosPorTurma)) {
             aluno.incluirTurma(turma);
             turma.incluirAluno(aluno);
             return true;

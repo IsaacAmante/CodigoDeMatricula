@@ -6,6 +6,8 @@
 
 package matricula;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Isaac
@@ -15,6 +17,7 @@ public class Disciplina {
     private int cargaHoraria;
     private String nome;
     private Turma turma;
+    private final ArrayList<Nota> notas = new ArrayList<>();
     
     public Disciplina(){
     }
@@ -59,5 +62,15 @@ public class Disciplina {
         return this.turma;
     }
 
-
+    public boolean addNota(Nota n){
+        return this.notas.add(n);
+    }
+    
+    public boolean removeNota(Nota n){
+        return this.notas.remove(n);
+    }
+    
+    public ArrayList<Nota> obterNotas(){
+        return this.notas;
+    }
 }

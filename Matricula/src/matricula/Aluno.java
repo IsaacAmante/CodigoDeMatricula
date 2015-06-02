@@ -9,7 +9,8 @@ import java.util.List;
 public class Aluno {
     private int matricula;
     private String nome;
-    private ArrayList<Turma> turmas = new ArrayList<>(); 
+    private ArrayList<Turma> turmas = new ArrayList<>();
+    private ArrayList<Nota> notas = new ArrayList<>();
 
     public Aluno(){
     }
@@ -49,5 +50,17 @@ public class Aluno {
     
     public String obterNome(){
         return this.nome;
+    }
+    
+    public boolean addNota(Nota n){
+        return this.notas.add(n);
+    }
+    
+    public boolean removeNota(Nota n){
+        return this.notas.remove(n);
+    }
+    
+    public ArrayList<Nota> obterNotas(){
+        return this.notas;
     }
 }
